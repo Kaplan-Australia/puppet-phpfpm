@@ -59,6 +59,7 @@ class phpfpm (
 
     file { $pool_dir:
       ensure => 'directory',
+      links  => 'follow',
     }
 
     # Purge pool.d if necessary
@@ -72,6 +73,7 @@ class phpfpm (
     # Main php-fpm config file
     file { "${config_dir}/${config_name}":
       ensure  => 'present',
+      links   => 'follow',
       content => template($config_template_file),
       notify  => Class['phpfpm::service'],
     }
